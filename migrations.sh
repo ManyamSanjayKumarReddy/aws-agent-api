@@ -5,7 +5,7 @@
 # Prerequisites:
 #   - Never mount migrations/ as a Docker volume
 #   - After any aerich command inside the container, sync back to local:
-#       docker compose cp app:/app/migrations ./migrations
+#       docker compose cp app:/app/migrations ./
 #   - Never run init-db on prod unless the DB is completely empty
 # =============================================================================
 
@@ -43,7 +43,7 @@ fresh_setup() {
     docker compose exec $DB_SERVICE psql -U $DB_USER -d $DB_NAME -c "\dt"
 
     echo "==> Syncing migration files back to local..."
-    docker compose cp $APP_SERVICE:/app/migrations ./migrations
+    docker compose cp $APP_SERVICE:/app/migrations ./
 
     echo "==> Fresh setup complete."
 }
@@ -71,7 +71,7 @@ migrate() {
     docker compose exec $APP_SERVICE uv run aerich upgrade
 
     echo "==> Syncing migration files back to local..."
-    docker compose cp $APP_SERVICE:/app/migrations ./migrations
+    docker compose cp $APP_SERVICE:/app/migrations ./
 
     echo "==> Migration '$NAME' applied."
 }
@@ -115,7 +115,7 @@ reset_local() {
     docker compose exec $DB_SERVICE psql -U $DB_USER -d $DB_NAME -c "\dt"
 
     echo "==> Syncing migration files back to local..."
-    docker compose cp $APP_SERVICE:/app/migrations ./migrations
+    docker compose cp $APP_SERVICE:/app/migrations ./
 
     echo "==> Local reset complete."
 }

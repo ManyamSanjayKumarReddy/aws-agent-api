@@ -55,23 +55,3 @@ async def get_session(session_id: str):
 async def delete_session(session_id: str):
     await session_service.delete_session(session_id)
     return {"deleted": session_id}
-
-
-@router.get("/sessions", response_model=list[SessionSummary])
-async def list_sessions():
-    sessions = await session_service.get_all_sessions()
-    return sessions
-
-
-@router.get("/sessions/{session_id}", response_model=SessionDetail)
-async def get_session(session_id: str):
-    detail = await session_service.get_session_detail(session_id)
-    if not detail:
-        raise HTTPException(status_code=404, detail="Session not found")
-    return detail
-
-
-@router.delete("/sessions/{session_id}")
-async def delete_session(session_id: str):
-    await session_service.delete_session(session_id)
-    return {"deleted": session_id}
