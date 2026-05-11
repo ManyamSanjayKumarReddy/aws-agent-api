@@ -1,0 +1,23 @@
+[project]
+name = "aws-agent"
+version = "2.0.0"
+description = "AWS infrastructure chatbot agent backend"
+requires-python = ">=3.12"
+
+dependencies = [
+    "fastapi==0.115.0",
+    "uvicorn[standard]==0.30.6",
+    "openai==1.30.5",
+    "httpx==0.27.0",
+    "pydantic==2.9.2",
+    "pydantic-settings==2.3.4",
+    "python-dotenv==1.0.1",
+    "tortoise-orm==0.21.3",
+    "asyncpg==0.29.0",
+    "aerich==0.7.2",
+]
+
+[tool.aerich]
+tortoise_orm = "app.core.database.TORTOISE_ORM_CONFIG"
+location = "./migrations"
+src_folder = "./."
